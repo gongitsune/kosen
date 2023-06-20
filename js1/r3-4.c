@@ -2,6 +2,7 @@
  * 第3回レポート プログラム4
  */
 
+#include <math.h>
 #include <stdio.h>
 
 int main(void) {
@@ -10,7 +11,7 @@ int main(void) {
   scanf("%d", &n);
 
   int i;
-  for (i = 2; i < n; i++) {
+  for (i = 2; i < sqrt(n) + 1; i++) {
     if (n % i == 0) {
       printf("素数ではない(約数%d)\n", i);
       return 0;
