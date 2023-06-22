@@ -131,12 +131,13 @@ int main(void) {
     bingo_num[i] = false;
     card[i] = rands[i];
   }
+  shuffle(rands, 64);
 
   int cnt = 0;
   print_card(card, size, bingo_num);
-  while (true) {
+  for (i = 0; i < 64; i++) {
     // ビンゴを開ける
-    int r = rand() % 64 + 1;
+    int r = rands[i];
     printf("num = %d\n", r);
     open_card(card, size, r);
 
