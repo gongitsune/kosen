@@ -14,7 +14,7 @@ int main(void) {
 
   for (i = 1; i < 10; i++) {
     j = i;
-    x = a[i];
+    x = a[j];
     while (j > 0 && x > a[j - 1]) {
       a[j] = a[j - 1];
       j--;
