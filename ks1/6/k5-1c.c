@@ -22,13 +22,15 @@ print(len(r)) # 素数の個数を表示
 print(r[-1])  # 最も大きい素数を表示
  */
 
+#include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 
 int main(void) {
-  int n, i;
+  int n, i, r;
   printf("N = ");
   scanf("%d", &n);
+  double sqrt_n = sqrt(n);
 
   int primes[n];
   bool a[n + 1];
@@ -41,6 +43,9 @@ int main(void) {
   i = 1;
   while (i <= n) {
     if (a[i]) {
+      if (i < sqrt_n) {
+        r = i * i;
+      }
     }
   }
 
