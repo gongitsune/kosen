@@ -39,7 +39,7 @@ int main(void) {
     random_array(a, 11);
     cnt_sum += sort(a, 11);
   }
-  printf("count average: %lf\n", cnt_sum / 100.);
+  printf("average count: %lf\n", cnt_sum / 100.);
 
   return 0;
 }
