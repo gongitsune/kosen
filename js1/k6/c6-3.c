@@ -13,7 +13,7 @@ bool compare(int a, int b, int *cnt) {
 }
 
 int main(void) {
-  int a[10], i, r, x, j, comp_cnt = 0, exchange_cnt = 0;
+  int a[10], i, r, x, j, exchange_cnt = 0;
 
   srand((unsigned int)time(NULL));
 
@@ -24,7 +24,7 @@ int main(void) {
     for (r = 1; r < 10; r++) {
       j = r;
       x = a[j];
-      while (j > 0 && compare(x, a[j - 1], &comp_cnt)) {
+      while (j > 0 && x > a[j - 1]) {
         exchange_cnt++;
         a[j] = a[j - 1];
         j--;
@@ -32,8 +32,11 @@ int main(void) {
       a[j] = x;
     }
   }
-  printf("average count: %lf\n", comp_cnt / 100.);
-  printf("average exchange count: %lf\n", exchange_cnt / 100.);
+  printf("average count: %lf\n", exchange_cnt / 100.);
 
   return 0;
 }
+
+/* 実行結果
+average count: 23.170000
+ */
