@@ -13,20 +13,18 @@ int main(void) {
   printf("n = ");
   scanf("%d", &n);
 
-  int cnt = 0, i, r;
-  bool prime;
+  int cnt = 0, i, r, b;
   for (i = m; cnt != n; i++) {
-    prime = i != 1;
-    for (r = 2; r <= sqrt(i); r++) {
-      if (i % r == 0) {
-        prime = false;
-        break;
-      }
-    }
+    if (i != 1) {
+      r = 2;
+      b = sqrt(i);
+      while (i % r != 0 && r <= b)
+        r++;
 
-    if (prime) {
-      printf("%d\n", i);
-      cnt++;
+      if (r > b) {
+        printf("%d\n", i);
+        cnt++;
+      }
     }
   }
 

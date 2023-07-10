@@ -7,24 +7,22 @@
 #include <stdio.h>
 
 int main(void) {
-  int m, n;
+  int m, n, i, r, b;
   printf("m = ");
   scanf("%d", &m);
   printf("n = ");
   scanf("%d", &n);
 
-  int i, r;
   for (i = m; i <= n; i++) {
-    bool prime = true;
-    for (r = 2; r <= sqrt(i); r++) {
-      if (i % r == 0) {
-        prime = false;
-        break;
-      }
-    }
+    if (i != 1) {
+      r = 2;
+      b = sqrt(i);
+      while (i % r != 0 && r <= b)
+        r++;
 
-    if (prime && i != 1) {
-      printf("%d\n", i);
+      if (r > b) {
+        printf("%d\n", i);
+      }
     }
   }
 

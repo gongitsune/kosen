@@ -7,18 +7,15 @@
 #include <stdio.h>
 
 int main(void) {
-  int n, i, sum = 0;
-  bool prime;
-  for (n = 2; sum <= 1000; n++) {
-    prime = true;
-    for (i = 2; i <= sqrt(n); i++) {
-      if (n % i == 0) {
-        prime = false;
-        break;
-      }
-    }
+  int n, i, b, sum = 0;
 
-    if (prime)
+  for (n = 2; sum <= 1000; n++) {
+    i = 2;
+    b = sqrt(n);
+    while (n % i != 0 && i <= b)
+      i++;
+
+    if (i > b)
       sum += n;
   }
 
@@ -26,3 +23,7 @@ int main(void) {
 
   return 0;
 }
+
+/* 実行結果 23 豊島圭吾
+n = 97 s = 1060
+ */

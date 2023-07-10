@@ -2,44 +2,38 @@
  * 挑戦的課題第6回 プログラム3
  */
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-int sort(int *a, int size) {
-  int i, x, j, cnt = 1;
-  for (i = 2; i <= size; i++) {
-    x = a[i];
-    j = i;
-    a[0] = x;
-    while (x > a[j - 1]) {
-      cnt++;
-      a[j] = a[j - 1];
-      j--;
-    }
-    a[j] = x;
-  }
-
-  return cnt;
-}
-
-void random_array(int *a, int size) {
-  int i;
-  for (i = 1; i < size; i++) {
-    a[i] = rand();
-  }
+bool compare(int a, int b, int *cnt) {
+  *cnt += 1;
+  return a > b;
 }
 
 int main(void) {
-  int a[11], i, cnt_sum = 0;
+  int a[10], i, r, x, j, comp_cnt = 0, exchange_cnt = 0;
 
   srand((unsigned int)time(NULL));
 
   for (i = 0; i < 100; i++) {
-    random_array(a, 11);
-    cnt_sum += sort(a, 11);
+    for (r = 0; r < 10; r++) {
+      a[r] = rand();
+    }
+    for (r = 1; r < 10; r++) {
+      j = r;
+      x = a[j];
+      while (j > 0 && compare(x, a[j - 1], &comp_cnt)) {
+        exchange_cnt++;
+        a[j] = a[j - 1];
+        j--;
+      }
+      a[j] = x;
+    }
   }
-  printf("average count: %lf\n", cnt_sum / 100.);
+  printf("average count: %lf\n", comp_cnt / 100.);
+  printf("average exchange count: %lf\n", exchange_cnt / 100.);
 
   return 0;
 }
