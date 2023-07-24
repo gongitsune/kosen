@@ -13,6 +13,12 @@ int main(void) {
     scanf("%d", &d[i]);
   }
 
+  printf("データ数 %d\n", n);
+  printf("ソート前データ ");
+  for (i = 0; i < n; i++)
+    printf("%d ", d[i]);
+  printf("\n");
+
   int index, max;
   for (i = 0; i < n; i++) {
     index = i;
@@ -27,6 +33,7 @@ int main(void) {
     d[i] = max;
   }
 
+  printf("ソート後データ ");
   for (i = 0; i < n; i++) {
     printf("%d ", d[i]);
   }
@@ -34,3 +41,11 @@ int main(void) {
 
   return 0;
 }
+
+/* 実行結果 23 豊島圭吾
+6
+11 7 20 16 9 5
+データ数 6
+ソート前データ 11 7 20 16 9 5
+ソート後データ 20 16 11 9 7 5
+ */
