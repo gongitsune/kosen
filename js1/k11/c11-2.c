@@ -3,39 +3,34 @@
  */
 
 #include <stdio.h>
-#define IN 1
-#define OUT 0
+#define IN 0
+#define OUT 1
 
 int main(void) {
-  char s1[100], s2[100];
+  char source[100], target[100];
   printf("string1 = ");
-  scanf("%s", s1);
+  scanf("%s", source);
   printf("string2 = ");
-  scanf("%s", s2);
+  scanf("%s", target);
 
-  int i = 0, r = 0, cnt = 0, state = OUT;
-  while (s1[i] != '\0') {
-    if (s1[i] == s2[0]) {
+  int i = -1, r, cnt = 0, state = OUT;
+  while (source[++i] != '\0') {
+    if (source[i] == target[0]) {
       r = 0;
       state = IN;
     }
 
-    if (state == IN) {
-      if (s1[i] == s2[r]) {
-        r++;
-        if (s2[r] == '\0') {
-          cnt++;
-          state = OUT;
-        }
-      } else {
+    if (state == IN && source[i] == target[r++]) {
+      if (target[r] == '\0') {
+        cnt++;
         state = OUT;
       }
+    } else {
+      state = OUT;
     }
-
-    i++;
   }
 
-  printf("文字列 %s は %d 個含まれています。\n", s2, cnt);
+  printf("文字列 %s は %d 個含まれています。\n", target, cnt);
   return 0;
 }
 
