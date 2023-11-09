@@ -1,26 +1,26 @@
 /* 23 豊島圭吾
- * 第11回課題プログラム3
+ * 第11回課題プログラム4
  */
 
 #include <stdio.h>
 
 int main(void) {
-  char s[100];
-  int n = 0;
+  char s1[100], s2[100];
+  printf("string2 = ");
+  scanf("%s", s2);
 
-  printf("string = ");
-  scanf("%s", s);
-
-  while (s[n] != '\0') {
-    n++;
+  int i = 0;
+  while (s2[i] != '\0') {
+    s1[i] = s2[i];
+    i++;
   }
+  s1[i] = '\0';
 
-  printf("文字数 = %d\n", n);
-
+  printf("string1 = %s\n", s1);
   return 0;
 }
 
 /* 実行結果
-string = abcdefghijklmnopqrstuvwxyz
-文字数 = 26
+string2 = takuma
+string1 = takuma
 */

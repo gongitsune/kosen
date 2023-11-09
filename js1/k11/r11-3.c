@@ -21,6 +21,8 @@ int main(void) {
 }
 
 /* 実行結果
-string = abcdefghijklmnopqrstuvwxyz
-文字数 = 26
+employ
+文字数 = 6
+earth
+文字数 = 5
 */

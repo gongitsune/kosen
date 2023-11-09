@@ -1,0 +1,23 @@
+[tasks.run]
+description = "Run the single file application"
+command = "script"
+args = ["-c", "./a.out", "output.txt"]
+
+[tasks.copy-output]
+description = "Copy the output to the clipboard"
+script = '''
+#!/bin/bash
+
+sed -i -e '1d' -e '$d' output.txt
+cat output.txt | win32yank.exe -i
+rm -f output.txt
+'''
+
+[tasks.build]
+description = "Build the single source file application"
+command = "cc"
+args = ["-o", "a.out", "${@}"]
+
+[tasks.build-and-run]
+description = "Build and run the single file application"
+run_task = { name = ["build", "run", "copy-output"] }
