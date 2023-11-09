@@ -1,3 +1,6 @@
+[env]
+DEBUG_OPTION = "-g -ggdb -fstack-usage -fno-omit-frame-pointer -fsanitize=address"
+
 [tasks.run]
 description = "Run the single file application"
 command = "script"
@@ -8,15 +11,25 @@ description = "Copy the output to the clipboard"
 script = '''
 #!/bin/bash
 
-sed -i -e '1d' -e '$d' output.txt
-cat output.txt | win32yank.exe -i
+tail -n +2 output.txt | head -n -2 | win32yank.exe -i
 rm -f output.txt
 '''
 
 [tasks.build]
 description = "Build the single source file application"
-command = "cc"
-args = ["-o", "a.out", "${@}"]
+command = "mold"
+args = [
+  "-run",
+  "cc",
+  "-g",
+  "-ggdb",
+  "-fstack-usage",
+  "-fno-omit-frame-pointer",
+  "-fsanitize=address",
+  "-o",
+  "a.out",
+  "${@}",
+]
 
 [tasks.build-and-run]
 description = "Build and run the single file application"

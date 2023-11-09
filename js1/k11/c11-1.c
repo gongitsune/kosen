@@ -23,6 +23,7 @@ int main(void) {
     j++;
   }
 
+  s1[i + j] = '\0';
   printf("string1 = %s\n", s1);
   return 0;
 }
