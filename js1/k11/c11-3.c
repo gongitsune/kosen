@@ -52,8 +52,6 @@ int main(void) {
 
             char tmp; // swap 用の一時変数
             while (s1[start] != '\0') {
-              // 空白になる部分を一時変数として使いながら
-              // diff個ずつずらしていく
               for (i = 0; i < diff; i++) {
                 tmp = s1[start + i];
                 s1[start + i] = s1[start + i + block_idx];
