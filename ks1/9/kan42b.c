@@ -1,7 +1,3 @@
-/* グローバル変数がどの関数でいつ書き換えられたのかがわかりにくいため、
- * デバッグがしずらい。
- */
-
 /* 23 豊島圭吾
  * 課題集9回目 プログラム11
  */
@@ -10,8 +6,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-void is_sosuu_noreturn(int a);
-int g;
+int is_sosuu(int a);
 
 int main(void) {
   int m, n, b, pre_p = 2, i, r;
@@ -21,8 +16,7 @@ int main(void) {
   scanf("%d", &n);
 
   for (i = m; i <= n; i++) {
-    is_sosuu_noreturn(i);
-    if (g) {
+    if (is_sosuu(i)) {
       if (i - pre_p == 2)
         printf("%5d %5d\n", pre_p, i);
       pre_p = i;
@@ -32,18 +26,17 @@ int main(void) {
   return 0;
 }
 
-void is_sosuu_noreturn(int a) {
+int is_sosuu(int a) {
   int i, b;
   if (a == 1)
-    g = 0;
-  else {
-    i = 2;
-    b = sqrt((double)a);
-    while (((a % i) != 0) && (i <= b))
-      i++;
+    return 0;
 
-    g = i > b;
-  }
+  i = 2;
+  b = sqrt((double)a);
+  while (((a % i) != 0) && (i <= b))
+    i++;
+
+  return i > b;
 }
 
 /* 実行結果 23 豊島圭吾

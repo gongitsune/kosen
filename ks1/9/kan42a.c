@@ -6,27 +6,35 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+int is_sosuu(int a);
+
 int main(void) {
-  int m, n, i, r, b;
+  int m, n, i;
   printf("m = ");
   scanf("%d", &m);
   printf("n = ");
   scanf("%d", &n);
 
   for (i = m; i <= n; i++) {
-    if (i != 1) {
-      r = 2;
-      b = sqrt(i);
-      while (i % r != 0 && r <= b)
-        r++;
-
-      if (r > b) {
-        printf("%d\n", i);
-      }
+    if (is_sosuu(i)) {
+      printf("%d\n", i);
     }
   }
 
   return 0;
+}
+
+int is_sosuu(int a) {
+  int i, b;
+  if (a == 1)
+    return 0;
+
+  i = 2;
+  b = sqrt((double)a);
+  while (((a % i) != 0) && (i <= b))
+    i++;
+
+  return i > b;
 }
 
 /* 実行結果 23 豊島圭吾
