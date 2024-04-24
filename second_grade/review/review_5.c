@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 int main(void) {
   int n, p;
@@ -9,29 +8,28 @@ int main(void) {
   printf("p = ");
   scanf("%d", &p);
 
-  int *cnts = (int *)malloc(n * sizeof(int));
+  int cnts[n];
   for (int i = 0; i < n; i++) {
     cnts[i] = 0;
   }
 
-  int t = 0, i = 0, step = 0;
-  while (p != 0 || t != 1) {
-    if (p != 0) {
-      p--;
-      if (cnts[i] == 0)
-        t++;
+  int i = 0, step = 0, bowl = p;
+  while (true) {
+    step++;
+    if (bowl != 0) {
+      bowl--;
       cnts[i]++;
+      if (cnts[i] == p) {
+        break;
+      }
     } else if (cnts[i] != 0) {
-      p += cnts[i];
-      t--;
+      bowl += cnts[i];
       cnts[i] = 0;
     }
     i = (i + 1) % n;
-    step++;
   }
-  free(cnts);
 
-  printf("%d番が勝者\n", (i == 0 ? n : i) - 1);
+  printf("%d番が勝者\n", i);
   printf("%dステップ目で終了\n", step);
   return 0;
 }
