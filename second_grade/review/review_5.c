@@ -13,9 +13,10 @@ int main(void) {
     cnts[i] = 0;
   }
 
-  int i = 0, step = 0, bowl = p;
+  int step = 0, bowl = p;
   while (true) {
     step++;
+    int i = step % n;
     if (bowl != 0) {
       bowl--;
       cnts[i]++;
@@ -26,10 +27,9 @@ int main(void) {
       bowl += cnts[i];
       cnts[i] = 0;
     }
-    i = (i + 1) % n;
   }
 
-  printf("%d番が勝者\n", i);
+  printf("%d番が勝者\n", step % n - 1);
   printf("%dステップ目で終了\n", step);
   return 0;
 }
