@@ -26,15 +26,9 @@ int main(const int argc, const char *argv[]) {
 
 char decode_char(char source) {
   if (source >= 'a' && source <= 'z') {
-    return (source - 'a' + 3) % ('z' - 'a' + 1) + 'a';
+    return (source - 'a' + 3) % 26 + 'a';
   } else if (source >= 'A' && source <= 'Z') {
-    int t = (source - 'A' - 5);
-    if (t < 0) {
-      t += 'Z' - 'A' + 1;
-    } else {
-      t %= 'Z' - 'A' + 1;
-    }
-    return t + 'A';
+    return (source - 'A' + 21) % 26 + 'A';
   } else if (source >= '0' && source <= '9') {
     return ('9' - source) + '0';
   }
