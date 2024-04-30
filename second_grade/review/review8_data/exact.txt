@@ -1,0 +1,5 @@
+08data01.txt		W:66	K:61
+08data02.txt		W:240	K:250
+08data03.txt		W:283	K:293
+08data04.txt		W:259	K:259
+08data05.txt		W:259	K:224

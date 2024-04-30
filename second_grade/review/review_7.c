@@ -40,21 +40,21 @@ int main(void) {
 }
 
 /*
-ファイル名 = ./second_grade/review/review7_data/07data00.txt
+ファイル名 = 07data00.txt
 5回目でゴール
 
-ファイル名 = ./second_grade/review/review7_data/07data01.txt
+ファイル名 = 07data01.txt
 14回目でゴール
 
-ファイル名 = ./second_grade/review/review7_data/07data02.txt
+ファイル名 = 07data02.txt
 5回目でゴール
 
-ファイル名 = ./second_grade/review/review7_data/07data03.txt
+ファイル名 = 07data03.txt
 400回目でゴール
 
-ファイル名 = ./second_grade/review/review7_data/07data04.txt
+ファイル名 = 07data04.txt
 156回目でゴール
 
-ファイル名 = ./second_grade/review/review7_data/07data05.txt
+ファイル名 = 07data05.txt
 238回目でゴール
 */
