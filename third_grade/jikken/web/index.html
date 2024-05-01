@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Jikken</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+
+  <div style="display: flex; gap: 10px;">
+    f(x) =
+    <input type="text" id="f" placeholder="f(x) = " value="x * x">
+  </div>
+  <div style="display: flex; gap: 10px;">
+    xrange =
+    <input type="number" id="xrange" placeholder="xrange = " value="1">
+  </div>
+  <div style="display: flex; gap: 10px;">
+    yrange =
+    <input type="number" id="yrange" placeholder="yrange = " value="1">
+  </div>
+  <div style="display: flex; gap: 10px;">
+    step =
+    <input type="number" id="step" placeholder="step = " value="0.1">
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const f = document.getElementById('f');
+    const xrange = document.getElementById('xrange');
+    const yrange = document.getElementById('yrange');
+    const step = document.getElementById('step');
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    const x0 = width / 2;
+    const y0 = height / 2;
+
+    // 描画関数
+    const draw = () => {
+      const xRangeValue = parseFloat(xrange.value);
+      const yRangeValue = parseFloat(yrange.value);
+      const stepValue = parseFloat(step.value);
+
+      // 値のチェック
+      if (xRangeValue <= 0) {
+        xrange.value = 1;
+        alert("xrange must be greater than 0");
+        return;
+      }
+      if (yRangeValue <= 0) {
+        yrange.value = 1;
+        alert("yrange must be greater than 0");
+        return;
+      }
+      if (stepValue <= 0) {
+        step.value = 0.1;
+        alert("step must be greater than 0");
+        return;
+      }
+
+      // 中心を(0, 0)とする座標を描画用の座標に変換
+      const convertX = (x) => x0 + x * x0 / xRangeValue;
+      const convertY = (y) => y0 - y * y0 / yRangeValue;
+
+      // キャンバスをクリア
+      ctx.clearRect(0, 0, width, height);
+
+      // グラフを描画
+      ctx.beginPath();
+
+      // 描画設定
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 2;
+
+      for (let x = -xRangeValue; x <= xRangeValue; x += stepValue) {
+        // f(x)を計算
+        const y = eval(f.value);
+        ctx.lineTo(convertX(x), convertY(y));
+      }
+      ctx.stroke();
+
+      // 描画設定
+      ctx.strokeStyle = "black";
+      const lw = ctx.lineWidth = 1;
+
+      // ボーダーを描画
+      ctx.beginPath();
+      ctx.moveTo(lw, lw);
+      ctx.lineTo(width - lw, lw);
+      ctx.lineTo(width - lw, height - lw);
+      ctx.lineTo(lw, height - lw);
+      ctx.lineTo(lw, lw);
+      ctx.stroke();
+
+      // X軸とY軸を描画
+      ctx.beginPath();
+      ctx.moveTo(0, y0);
+      ctx.lineTo(width, y0);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(x0, 0);
+      ctx.lineTo(x0, height);
+      ctx.stroke();
+    };
+
+    // 初回描画
+    draw();
+
+    // イベントリスナーを設定
+    // 値が変わったときに再描画するため
+    f.addEventListener("change", draw);
+    xrange.addEventListener("change", draw);
+    yrange.addEventListener("change", draw);
+    step.addEventListener("change", draw);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+10data01	5
+10data02	0
+10data03	12
+10data04	31
+10data05	719
+10data06	3995
+10data07	0
