@@ -1,38 +1,23 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 
 #define N 1000000
 #define STEP (N / 1000)
 
-// エラトステネスの篩
-void sieve(int n, int *p) {
-  int i, j;
-  for (i = 2; i <= n; i++) {
-    p[i] = 1;
-  }
-  p[0] = p[1] = 0;
-  for (i = 2; i <= n; i++) {
-    if (p[i]) {
-      for (j = i * 2; j <= n; j += i) {
-        p[j] = 0;
-      }
-    }
-  }
-}
+int is_prime(int n);
 
 int main(void) {
   clock_t start = clock(); // 開始時間
 
-  // スタックに確保するとスタックオーバーフローするのでヒープに確保
-  int *p = (int *)malloc(sizeof(int) * (N * 2 + 1));
-  sieve(N * 2, p);
-
-  for (int i = 1; i <= N; i++) {
+  int i = 1;
+  while (i <= N) {
     int flag = 0;
-    for (int j = i + 1; j <= 2 * i; j++) {
-      if (p[j]) {
+    for (int j = i; j <= i * 2; j++) {
+      if (is_prime(j)) {
         flag = 1;
+
+        // jが素数ならばjまでの数で定理は成立
+        i = j + 1;
         break;
       }
     }
@@ -51,8 +36,23 @@ int main(void) {
   printf("%dまでの正数で定理は成立\n", N);
   printf("%f sec\n", (double)(clock() - start) / CLOCKS_PER_SEC);
 
-  free(p);
   return 0;
+}
+
+int is_prime(int n) {
+  if (n < 2)
+    return 0;
+  if (n == 2)
+    return 1;
+  if (n % 2 == 0)
+    return 0;
+
+  for (int i = 3; i * i <= n; i += 2) {
+    if (n % i == 0)
+      return 0;
+  }
+
+  return 1;
 }
 
 /** 実行結果 自分のプログラム
