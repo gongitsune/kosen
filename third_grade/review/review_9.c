@@ -1,8 +1,9 @@
+#include <math.h>
 #include <stdio.h>
 #include <time.h>
 
 #define N 1000000
-#define STEP (N / 1000)
+#define STEP 1000
 
 int is_prime(int n, int *primes, int *p_len);
 
@@ -10,19 +11,19 @@ int main(void) {
   clock_t start = clock(); // 開始時間
 
   // Nまでの素数の個数は < N
-  int primes[N];
-  int p_len = 0;
+  int primes[(int)(1.25506 * N / log(N))];
+  int p_len = 0, step = 0;
 
   int i = 1;
   while (i <= N) {
     int flag = 0;
-    for (int j = i; j <= i * 2; j++) {
+    for (int j = i + 1; j <= i * 2; j++) {
       if (is_prime(j, primes, &p_len)) {
         flag = 1;
 
         // jが素数ならばjまでの数で定理は成立
         // しているためスキップして j+1 から再開
-        i = j + 1;
+        i = j;
         break;
       }
     }
@@ -32,9 +33,11 @@ int main(void) {
       return 0;
     }
 
-    if (i % STEP == 0) {
+    if (i - step >= STEP) {
       printf("n=%dまで成立 ", i);
       printf("%f sec\n", (double)(clock() - start) / CLOCKS_PER_SEC);
+
+      step = i;
     }
   }
 
