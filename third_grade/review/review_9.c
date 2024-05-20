@@ -10,7 +10,7 @@ int is_prime(int n, int *primes, int *p_len);
 int main(void) {
   clock_t start = clock(); // 開始時間
 
-  // Nまでの素数の個数は < N
+  // Nまでの素数の個数は < 1.25506 * N / log(N) である
   int primes[(int)(1.25506 * N / log(N))];
   int p_len = 0, step = 0;
 
@@ -47,6 +47,9 @@ int main(void) {
   return 0;
 }
 
+/*
+ * アリストテレスの篩を用いて素数判定を行う
+ */
 int is_prime(int n, int *primes, int *p_len) {
   if (n < 2)
     return 0;
