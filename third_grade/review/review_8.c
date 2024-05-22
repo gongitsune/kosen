@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-void sort(int a[], int n);
 int read_score(FILE *fp);
 
 int main(void) {
@@ -17,7 +16,7 @@ int main(void) {
   int w = read_score(fp);
   int k = read_score(fp);
   fclose(fp);
-  
+
   printf("W大学 = %d点\n", w);
   printf("K大学 = %d点\n", k);
   if (w > k) {
@@ -31,30 +30,23 @@ int main(void) {
   return 0;
 }
 
-void sort(int a[], int n) {
-  int max, index, i, j;
+int read_score(FILE *fp) {
+  int max_scores[3] = {0, 0, 0};
+  for (int i = 0; i < 10; i++) {
+    int score;
+    fscanf(fp, "%d", &score);
 
-  for (i = 0; i < n; i++) {
-    max = a[i];
-    index = i;
-    for (j = i + 1; j < n; j++) {
-      if (a[j] > max) {
-        max = a[j];
-        index = j;
+    for (int j = 0; j < 3; j++) {
+      if (score > max_scores[j]) {
+        for (int k = 2; k > j; k--) {
+          max_scores[k] = max_scores[k - 1];
+        }
+        max_scores[j] = score;
+        break;
       }
     }
-    a[index] = a[i];
-    a[i] = max;
   }
-}
-
-int read_score(FILE *fp) {
-  int scores[10];
-  for (int i = 0; i < 10; i++) {
-    fscanf(fp, "%d", &scores[i]);
-  }
-  sort(scores, 10);
-  return scores[0] + scores[1] + scores[2];
+  return max_scores[0] + max_scores[1] + max_scores[2];
 }
 
 /**
@@ -63,7 +55,7 @@ W大学 = 66点
 K大学 = 61点
 W大学の勝利
 
-ファイル名 = 08data02.txt    
+ファイル名 = 08data02.txt
 W大学 = 240点
 K大学 = 250点
 K大学の勝利
