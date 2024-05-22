@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 #define N 1000000
@@ -11,13 +12,14 @@ int main(void) {
   clock_t start = clock(); // 開始時間
 
   // Nまでの素数の個数は < 1.25506 * N / log(N) である
-  int primes[(int)(1.25506 * N / log(N))];
+  // int primes[(int)(1.25506 * N / log(N))];
+  int *primes = (int *)malloc((int)(1.25506 * N / log(N)) * sizeof(int));
   int p_len = 0, step = 0;
 
   int i = 1;
   while (i <= N) {
     int flag = 0;
-    for (int j = i + 1; j <= i * 2; j++) {
+    for (int j = i * 2; j >= i; j--) {
       if (is_prime(j, primes, &p_len)) {
         flag = 1;
 
