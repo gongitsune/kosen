@@ -1,26 +1,23 @@
-#include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 
 #define N 1000000
 #define STEP 1000
 
-int is_prime(int n, int *primes, int *p_len);
+int is_prime(int n);
 
 int main(void) {
   clock_t start = clock(); // 開始時間
 
   // Nまでの素数の個数は < 1.25506 * N / log(N) である
   // int primes[(int)(1.25506 * N / log(N))];
-  int *primes = (int *)malloc((int)(1.25506 * N / log(N)) * sizeof(int));
-  int p_len = 0, step = 0;
+  int step = 0;
 
   int i = 1;
   while (i <= N) {
     int flag = 0;
     for (int j = i * 2; j >= i; j--) {
-      if (is_prime(j, primes, &p_len)) {
+      if (is_prime(j)) {
         flag = 1;
 
         // jが素数ならばjまでの数で定理は成立
@@ -49,22 +46,14 @@ int main(void) {
   return 0;
 }
 
-/*
- * アリストテレスの篩を用いて素数判定を行う
- */
-int is_prime(int n, int *primes, int *p_len) {
+int is_prime(int n) {
   if (n < 2)
     return 0;
 
-  for (int i = 0; i < *p_len; i++) {
-    if (primes[i] * primes[i] > n)
-      break;
-    if (n % primes[i] == 0)
+  for (int i = 2; i * i <= n; i++) {
+    if (n % i == 0)
       return 0;
   }
-
-  primes[*p_len] = n;
-  (*p_len)++;
 
   return 1;
 }
