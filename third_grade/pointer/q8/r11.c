@@ -7,11 +7,11 @@ int main(void) {
   scanf("%s", s);
 
   int n = strlen(s);
-  char *p = (char *)malloc(n * sizeof(char));
+  char *p = (char *)malloc((n + 1) * sizeof(char));
   for (int i = 0; i < n; i++) {
-    *(p + i) = s[n - i - 1];
+    p[i] = s[n - i - 1];
   }
-  *(p + n) = '\0';
+  p[n] = '\0';
 
   printf("%s\n", p);
 
