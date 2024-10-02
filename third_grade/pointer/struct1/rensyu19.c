@@ -4,9 +4,10 @@ struct complx {
   double re;
   double im;
 };
+typedef struct complx COMPLX;
 
 int main(void) {
-  struct complx a, b, add, mul;
+  COMPLX a, b, add, mul;
 
   scanf("%lf%lf", &a.re, &a.im);
   scanf("%lf%lf", &b.re, &b.im);
