@@ -1,0 +1,23 @@
+{
+  "editor.formatOnSave": true,
+  "[c]": {
+    "editor.wordBasedSuggestions": "off",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.stickyScroll.defaultModel": "foldingProviderModel",
+    "editor.suggest.insertMode": "replace",
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.tabSize": 2
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/*.exe": true,
+    "**/*.ilk": true,
+    "**/*.obj": true,
+    "**/*.pdb": true
+  }
+}

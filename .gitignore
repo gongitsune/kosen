@@ -1,2 +1,7 @@
 **/a.out
 **/venv
+
+*.exe
+*.ilk
+*.obj
+*.pdb
