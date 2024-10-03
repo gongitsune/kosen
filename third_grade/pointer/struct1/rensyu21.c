@@ -7,6 +7,7 @@ typedef struct person {
   char sex[2];   // 性別
   double height; // 身長[cm]
   double weight; // 体重[kg]
+  double BMI;    // BMI
 } PERSON;
 
 int main(void) {
@@ -21,15 +22,21 @@ int main(void) {
 
   // 入力
   for (i = 0; i < n; i++) {
-    printf("氏名 年齢 性別 身長 体重 = ");
+    printf("氏名 年齢 性別(M\\F) 身長(cm) 体重(kg) = ");
     scanf("%s%d%s%lf%lf", seito[i].name, &seito[i].age, seito[i].sex,
           &seito[i].height, &seito[i].weight);
   }
 
+  // BMIの計算
+  for (i = 0; i < n; i++) {
+    seito[i].BMI =
+        seito[i].weight / (seito[i].height / 100 * seito[i].height / 100);
+  }
+
   // 表示
   for (i = 0; i < n; i++) {
-    printf("%-15s%3d%2s%6.1f%6.1f\n", seito[i].name, seito[i].age, seito[i].sex,
-           seito[i].height, seito[i].weight);
+    printf("%-15s%3d%2s%6.1f%6.1f%6.1f\n", seito[i].name, seito[i].age,
+           seito[i].sex, seito[i].height, seito[i].weight, seito[i].BMI);
   }
 
   free(seito);
@@ -38,8 +45,8 @@ int main(void) {
 
 /*
 人数 = 2
-氏名 年齢 性別 身長 体重 = aoki 34 M 186.2 90.4
-氏名 年齢 性別 身長 体重 = kako 128 F 120.4 46.8
-aoki            34 M 186.2  90.4
-kako           128 F 120.4  46.8
+氏名 年齢 性別(M\F) 身長(cm) 体重(kg) = aoki 34 M 187.3 43.2
+氏名 年齢 性別(M\F) 身長(cm) 体重(kg) = kako 90 F 190.1 67.4
+aoki            34 M 187.3  43.2  12.3
+kako            90 F 190.1  67.4  18.7
 */

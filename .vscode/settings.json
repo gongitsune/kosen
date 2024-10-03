@@ -15,7 +15,7 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    "**/*.exe": false,
+    "**/*.exe": true,
     "**/*.ilk": true,
     "**/*.obj": true,
     "**/*.pdb": true
