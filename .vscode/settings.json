@@ -19,5 +19,8 @@
     "**/*.ilk": true,
     "**/*.obj": true,
     "**/*.pdb": true
+  },
+  "files.associations": {
+    "stdio.h": "c"
   }
 }
