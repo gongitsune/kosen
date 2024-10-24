@@ -123,6 +123,6 @@ void delete(const char *data, NODE **p) {
 
 /** 実行結果
 ccc -> bbb -> aaa -> NULL
-何番目を削除する : 1
-bbb -> aaa -> NULL
+何を削除する : aaa
+ccc -> bbb -> NULL
  */
