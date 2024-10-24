@@ -6,7 +6,7 @@
     "editor.stickyScroll.defaultModel": "foldingProviderModel",
     "editor.suggest.insertMode": "replace",
     "editor.defaultFormatter": "xaver.clang-format",
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
   },
   "files.exclude": {
     "**/.git": true,

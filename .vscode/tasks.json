@@ -5,6 +5,7 @@
             "label": "C/C++: cl.exe build active file",
             "command": "cl.exe",
             "args": [
+                "/MDd",
                 "/Zi",
                 "/EHsc",
                 "/nologo",
