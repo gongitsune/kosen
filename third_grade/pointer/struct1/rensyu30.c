@@ -1,5 +1,3 @@
-#define _CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,9 +14,6 @@ void insert(int, const char *, NODE **);
 void delete(int, NODE **);
 
 int main(void) {
-  // メモリリーク検出用
-  _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
   char data[20];
   struct node *head = NULL;
   int n;
@@ -44,11 +39,6 @@ int main(void) {
   show(head);
 
   free_list(head);
-
-  // メモリリーク検出用
-  int leak = _CrtDumpMemoryLeaks();
-  if (leak)
-    printf("LEAK DETECTED!!");
   return 0;
 }
 

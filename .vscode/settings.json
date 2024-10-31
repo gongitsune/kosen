@@ -18,9 +18,7 @@
     "**/*.exe": true,
     "**/*.ilk": true,
     "**/*.obj": true,
-    "**/*.pdb": true
+    "**/*.pdb": true,
+    "**/*.a": true,
   },
-  "files.associations": {
-    "stdio.h": "c"
-  }
 }
