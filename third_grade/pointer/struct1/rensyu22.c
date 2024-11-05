@@ -1,6 +1,5 @@
 #include <stdalign.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 typedef struct person {
   char name[20]; // 氏名
@@ -14,7 +13,7 @@ typedef struct person {
 int main(void) {
   PERSON seito;
 
-  printf("PERSON : %llu bytes\n", sizeof(PERSON));
+  printf("PERSON : %lu bytes\n", sizeof(PERSON));
   printf("name   : %p\n", seito.name);
   printf("age    : %p\n", &seito.age);
   printf("sex    : %p\n", seito.sex);

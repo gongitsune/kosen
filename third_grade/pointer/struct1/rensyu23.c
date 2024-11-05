@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 typedef struct a_person {
   char name[20];    // 氏名
@@ -14,8 +13,8 @@ typedef struct p_person {
 } P_PERSON;
 
 int main(void) {
-  printf("A_PERSON : %llu bytes\n", sizeof(A_PERSON));
-  printf("P_PERSON : %llu bytes\n", sizeof(P_PERSON));
+  printf("A_PERSON : %lu bytes\n", sizeof(A_PERSON));
+  printf("P_PERSON : %lu bytes\n", sizeof(P_PERSON));
 
   return 0;
 }
