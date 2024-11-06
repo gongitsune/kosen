@@ -17,9 +17,16 @@ int main(void) {
   struct node *head = NULL;
   int n;
 
-  while (scanf("%s", data) != EOF) {
-    head = add(data, head);
-  }
+  // while (scanf("%s", data) != EOF) {
+  //   if (strcmp(data, "end") == 0) {
+  //     break;
+  //   }
+  //   head = add(data, head);
+  // }
+
+  head = add("aaa", head);
+  head = add("bbb", head);
+  head = add("ccc", head);
 
   show(head); /* 挿入前のノードの表示 */
   printf("挿入するデータ : ");
@@ -55,29 +62,25 @@ void free_list(NODE *head) {
     free_list(next);
 }
 
-void insert(int n, const char *data, NODE **p) {
-  if (n == 0) {
-    *p = add(data, *p);
+void insert(const int n, const char *data, NODE **p_head) {
+  if (n < 0) {
+    fprintf(stderr, "%d is invalid index.\n", n);
     return;
   }
+  for (int i = 0; i < n; i++) {
+    p_head = &(*p_head)->next;
+  }
 
-  int i;
-  NODE *x;
+  NODE *new_node = malloc(sizeof(NODE));
+  strcpy(new_node->name, data);
 
-  x = (NODE *)malloc(sizeof(NODE));
-  strcpy(x->name, data);
-
-  NODE *c = *p;
-  for (i = 0; i < n - 1; i++)
-    c = c->next;
-  x->next = c->next;
-  c->next = x;
+  new_node->next = *p_head;
+  *p_head = new_node;
 }
 
 /** 実行結果
-aoki kana hiro
-hiro
-kana
-aoki
-NULL
+ccc -> bbb -> aaa -> NULL
+挿入するデータ : ddd
+何番目の後に : 1
+ccc -> ddd -> bbb -> aaa -> NULL
  */

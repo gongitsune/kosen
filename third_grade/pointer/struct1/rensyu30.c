@@ -64,48 +64,43 @@ void free_list(NODE *head) {
     free_list(next);
 }
 
-void insert(int n, const char *data, NODE **p) {
-  if (n == 0) {
-    *p = add(data, *p);
+void insert(const int n, const char *data, NODE **p_head) {
+  if (n < 0) {
+    fprintf(stderr, "%d is invalid index.\n", n);
     return;
   }
+  for (int i = 0; i < n; i++) {
+    p_head = &(*p_head)->next;
+  }
 
-  int i;
-  NODE *x;
+  NODE *new_node = malloc(sizeof(NODE));
+  strcpy(new_node->name, data);
 
-  x = (NODE *)malloc(sizeof(NODE));
-  strcpy(x->name, data);
-
-  NODE *c = *p;
-  for (i = 0; i < n - 1; i++)
-    c = c->next;
-  x->next = c->next;
-  c->next = x;
+  new_node->next = *p_head;
+  *p_head = new_node;
 }
 
 void delete(int n, NODE **p) {
-  NODE *x;
-
-  if (n == 1) {
-    x = *p;
-    *p = (*p)->next;
-    free(x);
+  if (n < 1) {
+    fprintf(stderr, "%d is invalid index.\n", n);
     return;
   }
+  for (int i = 0; i < n - 1; i++) {
+    if ((*p)->next == NULL) {
+      fprintf(stderr, "%d is invalid index.\n", n);
+      return;
+    }
 
-  int i;
+    p = &(*p)->next;
+  }
 
-  NODE *c = *p;
-  for (i = 0; i < n - 2; i++)
-    c = c->next;
-
-  x = c->next;
-  c->next = x->next;
-  free(x);
+  NODE *tmp = *p;
+  *p = tmp->next;
+  free(tmp);
 }
 
 /** 実行結果
 ccc -> bbb -> aaa -> NULL
-何番目を削除する : 1
-bbb -> aaa -> NULL
+何番目を削除する : 2
+ccc -> aaa -> NULL
  */
