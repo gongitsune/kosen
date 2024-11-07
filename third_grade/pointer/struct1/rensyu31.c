@@ -7,7 +7,6 @@ typedef struct node {
   struct node *next;
 } NODE;
 
-NODE *add(const char *, NODE *);
 void show(NODE *);
 NODE *free_list(NODE *);
 void insert(int, const char *, NODE **);
@@ -42,7 +41,7 @@ int main(void) {
     case 1:
       printf("入力データ: ");
       scanf("%s", data);
-      head = add(data, head);
+      insert(0, data, &head);
       show(head);
       break;
     case 2:
