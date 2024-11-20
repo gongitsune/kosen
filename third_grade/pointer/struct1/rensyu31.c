@@ -7,11 +7,13 @@ typedef struct node {
   struct node *next;
 } NODE;
 
+int find(char *d, NODE *head);
 void show(NODE *);
-NODE *free_list(NODE *);
+void free_list(NODE **);
 void insert(int, const char *, NODE **);
 void delete_by_index(int n, NODE **);
 void delete_by_name(const char *, NODE **);
+int add_tail(char *, NODE **);
 
 int main(void) {
   char data[20];
@@ -26,6 +28,8 @@ int main(void) {
     printf(" 4) ノード名でノード削除\n");
     printf(" 5) 全ノード削除\n");
     printf(" 6) 終了\n");
+    printf(" 7) ノードの追加(末尾)\n");
+    printf(" 8) ノードの検索\n");
 
     // リスト表示
     printf("現在のリスト: ");
@@ -67,17 +71,46 @@ int main(void) {
       show(head);
       break;
     case 5:
-      head = free_list(head);
+      free_list(&head);
       show(head);
       break;
     case 6:
       loop = 0;
       break;
+    case 7:
+      printf("入力データ: ");
+      scanf("%s", data);
+      int node_cnt = add_tail(data, &head);
+      show(head);
+      printf("ノード数: %d\n", node_cnt);
+      break;
+    case 8:
+      printf("検索するデータ: ");
+      scanf("%s", data);
+      int nf = find(data, head);
+      if (nf == -1) {
+        printf("見つかりませんでした\n");
+      } else {
+        printf("見つかりました: %d番目\n", nf);
+      }
     }
   }
 
-  free_list(head);
+  free_list(&head);
   return 0;
+}
+
+int find(char *d, NODE *head) {
+  int n = 1;
+  while (head != NULL) {
+    if (strcmp(head->name, d) == 0) {
+      return n;
+    }
+    head = head->next;
+    n++;
+  }
+
+  return -1;
 }
 
 NODE *add(const char *d, NODE *h) {
@@ -95,13 +128,11 @@ void show(NODE *p) {
   printf("NULL\n");
 }
 
-NODE *free_list(NODE *head) {
-  if (head != NULL) {
-    NODE *next = head->next;
-    free(head);
-    return free_list(next);
-  }
-  return head;
+void free_list(NODE **head) {
+  if (*head != NULL)
+    free_list(&(*head)->next);
+  free(*head);
+  *head = NULL;
 }
 
 void insert(const int n, const char *data, NODE **p_head) {
@@ -145,6 +176,20 @@ void delete_by_index(int n, NODE **p) {
   NODE *tmp = *p;
   *p = tmp->next;
   free(tmp);
+}
+
+int add_tail(char *d, NODE **head) {
+  int n = 1;
+  NODE *new_node = malloc(sizeof(NODE));
+  strcpy(new_node->name, d);
+
+  while (*head != NULL) {
+    head = &(*head)->next;
+    n++;
+  }
+
+  *head = new_node;
+  return n;
 }
 
 /** 実行結果
