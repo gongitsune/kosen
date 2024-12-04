@@ -14,6 +14,7 @@ void insert(int, const char *, NODE **);
 void delete_by_index(int n, NODE **);
 void delete_by_name(const char *, NODE **);
 int add_tail(char *, NODE **);
+void del_from(int, NODE **);
 
 int main(void) {
   char data[20];
@@ -30,6 +31,7 @@ int main(void) {
     printf(" 6) 終了\n");
     printf(" 7) ノードの追加(末尾)\n");
     printf(" 8) ノードの検索\n");
+    printf(" 9) delete from\n");
 
     // リスト表示
     printf("現在のリスト: ");
@@ -93,6 +95,14 @@ int main(void) {
       } else {
         printf("見つかりました: %d番目\n", nf);
       }
+      break;
+    case 9:
+      printf("どこから削除するか: ");
+      int from;
+      scanf("%d", &from);
+      del_from(from, &head);
+      show(head);
+      break;
     }
   }
 
@@ -190,6 +200,21 @@ int add_tail(char *d, NODE **head) {
 
   *head = new_node;
   return n;
+}
+
+void del_from(int n, NODE **head) {
+  int i = 1;
+  while (*head != NULL) {
+    NODE *tmp = *head;
+
+    if (i >= n) {
+      *head = tmp->next;
+      free(tmp);
+    } else {
+      head = &tmp->next;
+    }
+    i++;
+  }
 }
 
 /** 実行結果
