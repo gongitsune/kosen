@@ -85,6 +85,7 @@ int add_tail(char *d, NODE **head) {
   int n = 1;
   NODE *new_node = malloc(sizeof(NODE));
   strcpy(new_node->name, d);
+  new_node->next = NULL;
 
   while (*head != NULL) {
     head = &(*head)->next;
