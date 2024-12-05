@@ -47,7 +47,40 @@
         <div
           class="flex flex-col gap-4 my-4 p-4 bg-base-300 rounded-xl flex-1 overflow-y-auto max-h-[70vh]"
           id="ref-list"
-        ></div>
+        >
+          <div
+            tabindex="0"
+            class="collapse collapse-open bg-base-100 flex-shrink-0"
+          >
+            <div class="collapse-title text-xl font-medium max-w-full">
+              <p class="text-wrap">
+                ${title}${title}${title}${title}${title}${title}${title}${title}${title}${title}
+              </p>
+            </div>
+            <div class="collapse-content flex gap-4">
+              <p class="flex-1">${refText}</p>
+            </div>
+
+            <button
+              class="btn btn-circle btn-xs absolute top-4 right-4 delete-btn"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
     </main>
   </body>

@@ -77,18 +77,37 @@ window.addEventListener("load", () => {
         "beforeend",
         `
         <div
-            tabindex="0"
-            class="collapse collapse-open bg-base-100 flex-shrink-0"
+          tabindex="0"
+          class="collapse collapse-open bg-base-100 flex-shrink-0"
         >
-            <div class="collapse-title text-xl font-medium">
-                ${title}
-            </div>
-            <div class="collapse-content">
-                <p>${refText}</p>
-            </div>
+          <div class="collapse-title text-xl font-medium">${title}</div>
+          <div class="collapse-content flex gap-4">
+            <p class="flex-1">${refText}</p>
+            <button class="btn btn-circle btn-xs delete-btn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
         `
       );
+      refList.lastElementChild
+        .querySelector(".delete-btn")
+        .addEventListener("click", () => {
+          refList.removeChild(refList.lastElementChild);
+        });
     });
   });
   delRefBtn.addEventListener("click", () => {
