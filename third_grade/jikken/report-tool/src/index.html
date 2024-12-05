@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>参考文献ジェネレーター</title>
+    <link rel="stylesheet" href="./output.css" />
+    <script src="./handler.js" type="module"></script>
+  </head>
+  <body class="h-screen relative flex flex-col">
+    <header>
+      <div class="navbar bg-base-100">
+        <p class="btn btn-ghost text-xl">参考文献生成</p>
+      </div>
+    </header>
+    <main class="bg-base-200 w-full flex flex-col items-center h-full">
+      <div class="mt-8 px-8 w-full lg:w-[65%] flex flex-col gap-4 h-full">
+        <label class="input input-bordered flex items-center gap-2 w-full">
+          URL
+          <input
+            type="text"
+            class="grow"
+            id="url-input"
+            placeholder="参考文献URL"
+          />
+        </label>
+
+        <div class="flex flex-col gap-4 md:flex-row flex-shrink-0">
+          <label class="form-control w-full md:max-w-xs">
+            <div class="label">
+              <span class="label-text">形式を選択</span>
+            </div>
+            <select class="select select-bordered" id="style-select">
+              <option>ieee</option>
+              <option>apa</option>
+              <option>mla</option>
+            </select>
+          </label>
+          <button class="btn btn-primary md:mt-9" id="add-ref-btn">
+            文献リストに追加
+          </button>
+          <button class="btn btn-secondary md:mt-9" id="del-ref-btn">
+            文献リストをすべて削除
+          </button>
+        </div>
+
+        <div
+          class="flex flex-col gap-4 my-4 p-4 bg-base-300 rounded-xl flex-1 overflow-y-auto max-h-[70vh]"
+          id="ref-list"
+        ></div>
+      </div>
+    </main>
+  </body>
+</html>
