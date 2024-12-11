@@ -17,6 +17,8 @@ int main(void) {
     printf(" 7) ノードの追加(末尾)\n");
     printf(" 8) ノードの検索\n");
     printf(" 9) delete from\n");
+    printf(" 10) ノード数\n");
+    printf(" 11) ノードのデータ設定\n");
 
     // リスト表示
     printf("現在のリスト: ");
@@ -33,7 +35,6 @@ int main(void) {
       printf("入力データ: ");
       scanf("%s", data);
       insert(0, data, &head);
-      show(head);
       break;
     case 2:
       printf("挿入するデータ: ");
@@ -42,24 +43,20 @@ int main(void) {
       int n;
       scanf("%d", &n);
       insert(n, data, &head);
-      show(head);
       break;
     case 3:
       printf("何番目を削除する: ");
       int n2;
       scanf("%d", &n2);
       delete_by_index(n2, &head);
-      show(head);
       break;
     case 4:
       printf("何を削除する: ");
       scanf("%s", data);
       delete_by_name(data, &head);
-      show(head);
       break;
     case 5:
       free_list(&head);
-      show(head);
       break;
     case 6:
       loop = 0;
@@ -68,7 +65,6 @@ int main(void) {
       printf("入力データ: ");
       scanf("%s", data);
       int node_cnt = add_tail(data, &head);
-      show(head);
       printf("ノード数: %d\n", node_cnt);
       break;
     case 8:
@@ -86,7 +82,17 @@ int main(void) {
       int from;
       scanf("%d", &from);
       del_from(from, &head);
-      show(head);
+      break;
+    case 10:
+      printf("ノード数: %d\n", count(head));
+      break;
+    case 11:
+      printf("何番目のデータを設定するか: ");
+      int n3;
+      scanf("%d", &n3);
+      printf("データ: ");
+      scanf("%s", data);
+      set_data(n3, data, head);
       break;
     }
   }

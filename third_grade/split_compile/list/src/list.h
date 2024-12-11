@@ -13,3 +13,5 @@ void delete_by_index(int n, NODE **);
 void delete_by_name(const char *, NODE **);
 int add_tail(char *, NODE **);
 void del_from(int, NODE **);
+int count(NODE *);
+void set_data(int, char *, NODE *);

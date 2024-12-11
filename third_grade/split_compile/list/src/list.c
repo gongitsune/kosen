@@ -110,3 +110,31 @@ void del_from(int n, NODE **head) {
     i++;
   }
 }
+
+int count(NODE *head) {
+  int n = 0;
+  while (head != NULL) {
+    n++;
+    head = head->next;
+  }
+  return n;
+}
+
+void set_data(int n, char *data, NODE *head) {
+  if (n <= 0) {
+    fprintf(stderr, "%d is invalid index.\n", n);
+    return;
+  }
+  if (head == NULL) {
+    fprintf(stderr, "List is empty.\n");
+    return;
+  }
+  for (int i = 1; i < n; i++) {
+    head = head->next;
+    if (head == NULL) {
+      fprintf(stderr, "%d is invalid index.\n", n);
+      return;
+    }
+  }
+  strcpy(head->name, data);
+}
