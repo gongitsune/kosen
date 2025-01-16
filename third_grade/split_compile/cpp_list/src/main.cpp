@@ -1,7 +1,86 @@
 #include "list.hpp"
-#include <stdio.h>
+#include <iostream>
+#include <vector>
+
+static const auto op_name = std::vector<std::string>{
+    "exit", "add_head", "add_tail", "insert", "del_data", "show", "clear",
+};
+
+void print_menu() {
+  for (int i = 0; i < op_name.size(); i++) {
+    std::cout << i << ") " << op_name[i] << std::endl;
+  }
+}
+
+template <typename T> bool exec_op(LinkedList<T> &list);
 
 int main(void) {
+  auto cond = true;
+  auto list = LinkedList<int>();
+  while (cond) {
+    std::cout << "===========================" << std::endl;
+    print_menu();
+    cond = exec_op<int>(list);
+    list.show();
+  }
+
+  return 0;
+}
+
+template <typename T> bool exec_op(LinkedList<T> &list) {
+  int op;
+  std::cout << "input operation: ";
+  std::cin >> op;
+  switch (op) {
+  case 0: // exit
+    return false;
+  case 1: { // add_head
+    T data;
+    std::cout << "input data: ";
+    std::cin >> data;
+    list.add(data);
+    return true;
+  }
+  case 2: { // add_tail
+    T data;
+    std::cout << "input data: ";
+    std::cin >> data;
+    list.add_tail(data);
+    return true;
+  }
+  case 3: { // insert
+    int idx;
+    T data;
+    std::cout << "input index: ";
+    std::cin >> idx;
+    std::cout << "input data: ";
+    std::cin >> data;
+    list.insert(idx, data);
+    return true;
+  }
+  case 4: { // del_data
+    T data;
+    std::cout << "input data: ";
+    std::cin >> data;
+    list.del_data(data);
+    return true;
+  }
+  case 5: // show
+    list.show();
+    break;
+  case 6: // clear
+    list.clear();
+    break;
+  default:
+    std::cout << "invalid operation" << std::endl;
+    return true;
+  }
+  return true;
+}
+template bool exec_op<int>(LinkedList<int> &list);
+
+/*
+int old_main(void) {
   char data[20];
   struct node *head = NULL;
 
@@ -105,66 +184,93 @@ int main(void) {
   free_list(&head);
   return 0;
 }
+*/
 
 /*実行結果
 ===========================
- 1) ノードの追加
- 2) 任意の位置にノード挿入
- 3) 任意の位置のノード削除
- 4) ノード名でノード削除
- 5) 全ノード削除
- 6) 終了
- 7) ノードの追加(末尾)
- 8) ノードの検索
- 9) delete from
- 10) ノード数
- 11) ノードのデータ設定
-現在のリスト: a -> b -> c -> NULL
-どの処理を行いますか: 10
-ノード数: 3
+0) exit
+1) add_head
+2) add_tail
+3) insert
+4) del_data
+5) show
+6) clear
+input operation: 1
+input data: 10
+[LinkedList::insert] Inserted at 0
+10 -> NULL
 ===========================
- 1) ノードの追加
- 2) 任意の位置にノード挿入
- 3) 任意の位置のノード削除
- 4) ノード名でノード削除
- 5) 全ノード削除
- 6) 終了
- 7) ノードの追加(末尾)
- 8) ノードの検索
- 9) delete from
- 10) ノード数
- 11) ノードのデータ設定
-現在のリスト: a -> b -> c -> NULL
-どの処理を行いますか: 10
-ノード数: 3
+0) exit
+1) add_head
+2) add_tail
+3) insert
+4) del_data
+5) show
+6) clear
+input operation: 1
+input data: 20
+[LinkedList::insert] Inserted at 0
+20 -> 10 -> NULL
 ===========================
- 1) ノードの追加
- 2) 任意の位置にノード挿入
- 3) 任意の位置のノード削除
- 4) ノード名でノード削除
- 5) 全ノード削除
- 6) 終了
- 7) ノードの追加(末尾)
- 8) ノードの検索
- 9) delete from
- 10) ノード数
- 11) ノードのデータ設定
-現在のリスト: a -> b -> c -> NULL
-どの処理を行いますか: 11
-何番目のデータを設定するか: 2
-データ: r
+0) exit
+1) add_head
+2) add_tail
+3) insert
+4) del_data
+5) show
+6) clear
+input operation: 2
+input data: 30
+[LinkedList::insert] Inserted at 2
+20 -> 10 -> 30 -> NULL
 ===========================
- 1) ノードの追加
- 2) 任意の位置にノード挿入
- 3) 任意の位置のノード削除
- 4) ノード名でノード削除
- 5) 全ノード削除
- 6) 終了
- 7) ノードの追加(末尾)
- 8) ノードの検索
- 9) delete from
- 10) ノード数
- 11) ノードのデータ設定
-現在のリスト: a -> r -> c -> NULL
-どの処理を行いますか: 6
+0) exit
+1) add_head
+2) add_tail
+3) insert
+4) del_data
+5) show
+6) clear
+input operation: 3
+input index: 2
+input data: 60
+[LinkedList::insert] Inserted at 2
+20 -> 10 -> 60 -> 30 -> NULL
+===========================
+0) exit
+1) add_head
+2) add_tail
+3) insert
+4) del_data
+5) show
+6) clear
+input operation: 4
+input data: 10
+[LinkedList::del_data] Deleted by data
+20 -> 60 -> 30 -> NULL
+===========================
+0) exit
+1) add_head
+2) add_tail
+3) insert
+4) del_data
+5) show
+6) clear
+input operation: 6
+[LinkedList::del] Deleted at 1
+[LinkedList::del] Deleted at 1
+[LinkedList::del] Deleted at 1
+[LinkedList::clear] Cleared
+NULL
+===========================
+0) exit
+1) add_head
+2) add_tail
+3) insert
+4) del_data
+5) show
+6) clear
+input operation: 0
+NULL
+[LinkedList::clear] Cleared
  */

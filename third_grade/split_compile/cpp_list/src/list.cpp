@@ -1,8 +1,101 @@
-#include "list.hpp"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#define DEBUG
 
+#include "list.hpp"
+#include <iostream>
+#include <string>
+
+void log_debug(std::string msg, std::string source) {
+#ifdef DEBUG
+  std::cout << "[" << source << "] " << msg << std::endl;
+#endif // DEBUG
+}
+
+template <typename T> void LinkedList<T>::show() const {
+  // ここは生ポインタで...
+  Node *curr = head.get();
+  while (curr != nullptr) {
+    std::cout << curr->data << " -> ";
+    curr = curr->next.get();
+  }
+  std::cout << "NULL" << std::endl;
+}
+
+template <typename T> void LinkedList<T>::add(const T &data) {
+  insert(0, data);
+}
+
+template <typename T> void LinkedList<T>::add_tail(const T &data) {
+  insert(count, data);
+}
+
+template <typename T> void LinkedList<T>::insert(const int n, const T &data) {
+  if (n < 0 || n > count) {
+    std::cerr << n << " is invalid index." << std::endl;
+    return;
+  }
+
+  auto new_node = std::make_unique<Node>(data);
+  auto p_head = &this->head;
+  for (int i = 0; i < n; i++) {
+    Node *curr = p_head->get();
+    p_head = &curr->next;
+  }
+
+  new_node->next = std::move(*p_head);
+  *p_head = std::move(new_node);
+  count++;
+
+  log_debug("Inserted at " + std::to_string(n), "LinkedList::insert");
+}
+
+template <typename T> void LinkedList<T>::del(const int n) {
+  if (n < 1 || n > count) {
+    std::cerr << n << " is invalid index." << std::endl;
+    return;
+  }
+
+  auto p_head = &this->head;
+  for (int i = 0; i < n - 1; i++) {
+    Node *curr = p_head->get();
+    p_head = &curr->next;
+  }
+
+  *p_head = std::move((*p_head)->next);
+  count--;
+
+  log_debug("Deleted at " + std::to_string(n), "LinkedList::del");
+}
+
+template <typename T> void LinkedList<T>::del_data(const T &data) {
+  auto p_head = &this->head;
+  while (*p_head != nullptr) {
+    if ((*p_head)->data == data) {
+      *p_head = std::move((*p_head)->next);
+      count--;
+      log_debug("Deleted by data", "LinkedList::del_data");
+      return;
+    }
+    p_head = &(*p_head)->next;
+  }
+
+  std::cerr << data << " is not found." << std::endl;
+}
+
+template <typename T> void LinkedList<T>::clear() {
+  while (count > 0) {
+    del(1);
+  }
+  log_debug("Cleared", "LinkedList::clear");
+}
+
+template <typename T> int LinkedList<T>::get_count() const { return count; }
+
+// Explicit instantiation
+// 課題でファイルを分割する必要があるため、明示的インスタンス化を行う
+template class LinkedList<int>;
+template class LinkedList<std::string>;
+
+/*
 int find(const char *d, NODE *head) {
   int n = 1;
   while (head != NULL) {
@@ -14,21 +107,6 @@ int find(const char *d, NODE *head) {
   }
 
   return -1;
-}
-
-NODE *add(const char *d, NODE *h) {
-  NODE *p = (NODE *)malloc(sizeof(NODE));
-  strcpy(p->name, d);
-  p->next = h;
-  return p;
-}
-
-void show(NODE *p) {
-  while (p != NULL) {
-    printf("%s -> ", p->name);
-    p = p->next;
-  }
-  printf("NULL\n");
 }
 
 void free_list(NODE **head) {
@@ -138,3 +216,4 @@ void set_data(int n, const char *data, NODE *head) {
   }
   strcpy(head->name, data);
 }
+*/
