@@ -1,6 +1,8 @@
 #include "stack.hpp"
+#include "vec2.hpp"
 #include <cassert>
 #include <cmath>
+#include <iomanip>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -9,9 +11,9 @@ void log(const std::string msg, const std::string name) {
   std::cout << "[" << name << "] " << msg << std::endl;
 }
 
-Stack::~Stack() { delete[] data; }
+template <typename T> Stack<T>::~Stack() { delete[] data; }
 
-bool Stack::Push(const Vec2 &t) {
+template <typename T> bool Stack<T>::Push(const T &t) {
   if (IsFull()) {
     std::cerr << "Stack is full!" << std::endl;
     return false;
@@ -20,9 +22,7 @@ bool Stack::Push(const Vec2 &t) {
   return true;
 }
 
-bool Stack::Push(float x, float y) { return Push(Vec2(x, y)); }
-
-bool Stack::Pop(Vec2 &t) {
+template <typename T> bool Stack<T>::Pop(T &t) {
   if (IsEmpty()) {
     std::cerr << "Stack is empty!" << std::endl;
     return false;
@@ -32,11 +32,25 @@ bool Stack::Pop(Vec2 &t) {
   return true;
 }
 
-void Stack::Show() const {
-  std::cout << "==== Stack ====" << std::endl;
-  for (int i = 0; i <= top; ++i) {
-    std::cout << i << ": " << data[i] << std::endl;
+template <typename T> void Stack<T>::Show() const {
+  std::cout << "     ┏━━━━━━━━━┓" << std::endl;
+  for (int i = size - 1; i >= 0; --i) {
+    std::cout << "[" << std::setw(2) << i << "] ┃ ";
+    if (i <= top) {
+      std::cout << data[i];
+    } else {
+      std::cout << "       ";
+    }
+    std::cout << " ┃";
+    if (i == top) {
+      std::cout << " <- top";
+    }
+    std::cout << std::endl;
   }
-  std::cout << "===============" << std::endl;
+  std::cout << "     ┗━━━━━━━━━┛" << std::endl;
   std::cout << std::endl;
 }
+
+// 課題では定義と実装を分けることが求められているため、明示的なインスタンス化を行う
+template class Stack<Vec2>;
+template class Stack<float>;

@@ -9,7 +9,7 @@ struct Vec2 {
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Vec2 &v) {
-  os << "Vec2(" << v.x << ", " << v.y << ")";
+  os << "(" << v.x << ", " << v.y << ") ";
   return os;
 }
 
