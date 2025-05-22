@@ -1,6 +1,6 @@
 {
     "require": {
-        "guzzlehttp/guzzle": "~7.3.0",
+        "guzzlehttp/guzzle": "~7.4.5",
         "ezyang/htmlpurifier": "*"
     },
     "autoload": {
