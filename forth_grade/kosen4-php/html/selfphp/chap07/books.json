@@ -1,0 +1,28 @@
+{"books":
+  [
+    {
+      "isbn":"978-4-7981-5112-0",
+      "title":"\u72ec\u7fd2Java \u65b0\u7248",
+       "author":"\u5c71\u7530\u7965\u5bdb",
+       "published":"\u7fd4\u6cf3\u793e",
+       "price":"2980",
+       "publishDate":"2019/05/15"
+    },
+    {
+      "isbn":"978-4-7981-5382-7",
+      "title":"\u72ec\u7fd2C# \u65b0\u7248",
+      "author":"\u5c71\u7530\u7965\u5bdb",
+      "published":"\u7fd4\u6cf3\u793e",
+      "price":"3600",
+      "publishDate":"2017/12/15"
+    },
+    {
+      "isbn":"978-4-8222-8653-8",
+      "title":"\u57fa\u790e\u304b\u3089\u3057\u3063\u304b\u308a\u5b66\u3076C#\u306e\u6559\u79d1\u66f8",
+      "author":"\u9ad8\u6c5f\u8ce2",
+      "published":"\u65e5\u7d4cBP",
+      "price":"2900",
+      "publishDate":"2019/12/20"
+    }
+  ]
+}

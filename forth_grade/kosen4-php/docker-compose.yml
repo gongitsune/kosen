@@ -1,0 +1,35 @@
+services:
+  php:
+    image: php:apache
+    volumes:
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./html:/var/www/html
+    ports:
+      - 8080:80
+  mysql:
+    image: mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=selfphp
+      - MYSQL_USER=selfusr
+      - MYSQL_PASSWORD=selfpass
+      - TZ=Asia/Tokyo
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=selfusr
+      - PMA_PASSWORD=selfpass
+    ports:
+      - 4040:80
+    # volumes:
+    #   - ./phpmyadmin/sessions:/sessions
+  selenium:
+    image: selenium/standalone-chromium:latest
+    shm_size: "2g"
+    ports:
+      - 4444:4444
+      - 7900:7900

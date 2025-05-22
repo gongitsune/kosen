@@ -23,6 +23,7 @@ int main() {
     fprintf(stderr, "p->age=%d\n", p->age);
     p--;
   }
+  printf("=====\n");
   p = friend;
   for (i = 0; i < 3; i++) {
     fprintf(stderr, "p->name=%s\n", p->name);
@@ -52,6 +53,7 @@ p->age=13
 p->name=hanako
 p->tel=09088883333
 p->age=21
+=====
 p->name=hanako
 p->tel=09088883333
 p->age=21
