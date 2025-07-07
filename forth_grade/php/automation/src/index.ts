@@ -1,6 +1,6 @@
 import { exists, mkdir, readdir } from "node:fs/promises";
 import { parseArgs } from "node:util";
-import { Browser, Builder } from "selenium-webdriver";
+import { Browser, Builder, By } from "selenium-webdriver";
 import { Options } from "selenium-webdriver/chrome";
 import sharp from "sharp";
 import { $ } from "bun";
@@ -40,20 +40,74 @@ const cli = async () => {
 		.setChromeOptions(new Options())
 		.build();
 
+	const images: string[] = [];
+
 	// take screen shot
 	try {
 		const url = `http://php/selfphp/${chapter}/${file_name}.php`;
 		console.log(`Request: ${url}`);
 		await driver.get(url);
 		await driver.executeScript("document.body.style.zoom='1.5'");
-		const base64 = await driver.takeScreenshot();
 
+		// find form elements
+		const form_elems = await driver.findElements(By.css("form"));
+		console.log(`Found ${form_elems.length} form elements.`);
+
+		// create images directory
 		await mkdir(`images/${chapter}`, { recursive: true });
-		await sharp(Buffer.from(base64, "base64"))
-			.trim({
-				threshold: 10,
-			})
-			.toFile(output_image);
+
+		const take_screenshot = async (path: string) => {
+			const base64 = await driver.takeScreenshot();
+			await sharp(Buffer.from(base64, "base64"))
+				.trim({
+					threshold: 10,
+				})
+				.toFile(path);
+			return path;
+		};
+
+		if (form_elems.length > 0) {
+			for await (const form_elem of form_elems) {
+				const labels = await form_elem.findElements(By.css("label"));
+				const names = labels.map((label_elem) =>
+					label_elem.getAttribute("for"),
+				);
+
+				for await (const name of names) {
+					const input_elem = await form_elem.findElement(By.name(name));
+					const user_input = prompt(`input (${name}):`);
+					if (user_input) {
+						input_elem.sendKeys(user_input);
+						console.log(`Send "${user_input}" to input element (${name})`);
+					}
+				}
+
+				const submit_elems = await form_elem.findElements(
+					By.css('input[type="submit"]'),
+				);
+				console.log(`Found ${submit_elems.length} input(submit) elements.`);
+
+				for await (const submit_elem of submit_elems) {
+					prompt(`Submit (${await submit_elem.getAttribute("value")}):`);
+
+					images.push(
+						await take_screenshot(
+							`images/${chapter}/${file_name}_${images.length}.jpg`,
+						),
+					);
+					await submit_elem.submit();
+					images.push(
+						await take_screenshot(
+							`images/${chapter}/${file_name}_${images.length}.jpg`,
+						),
+					);
+				}
+			}
+		} else {
+			images.push(
+				await take_screenshot(output_image),
+			);
+		}
 	} finally {
 		await driver.quit();
 	}
@@ -82,7 +136,7 @@ ${php}
 \`\`\`
 #v(0.6cm)
 #text("Output:")
-#image("../../${output_image}")
+${images.map((path) => `#image("../../${path}")`).join("\n")}
 `;
 	const report_file = `report/${chapter}/${file_name}.typ`;
 	await Bun.write(report_file, report, {

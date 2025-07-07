@@ -14,7 +14,6 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
-		"node-html-to-image": "^5.0.0",
 		"selenium-webdriver": "^4.32.0",
 		"sharp": "^0.34.1"
 	}
