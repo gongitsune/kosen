@@ -6,6 +6,11 @@ services:
       - ./html:/var/www/html
     ports:
       - 8080:80
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+      - 1025:1025
   mysql:
     image: mysql
     volumes:

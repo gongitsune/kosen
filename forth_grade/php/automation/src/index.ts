@@ -30,7 +30,6 @@ const cli = async () => {
 	const file_name = split_s
 		.findLast((v) => v.endsWith("php"))
 		?.replace(".php", "");
-	const output_image = `images/${chapter}/${file_name}.jpg`;
 
 	const php = await Bun.file(values.s).text();
 
@@ -44,6 +43,7 @@ const cli = async () => {
 
 	// take screen shot
 	try {
+		// const url = `http://host.docker.internal/selfphp/${chapter}/${file_name}.php`;
 		const url = `http://php/selfphp/${chapter}/${file_name}.php`;
 		console.log(`Request: ${url}`);
 		await driver.get(url);
@@ -66,48 +66,17 @@ const cli = async () => {
 			return path;
 		};
 
-		if (form_elems.length > 0) {
-			for await (const form_elem of form_elems) {
-				const labels = await form_elem.findElements(By.css("label"));
-				const names = labels.map((label_elem) =>
-					label_elem.getAttribute("for"),
-				);
+		let YorN: string;
 
-				for await (const name of names) {
-					const input_elem = await form_elem.findElement(By.name(name));
-					const user_input = prompt(`input (${name}):`);
-					if (user_input) {
-						input_elem.sendKeys(user_input);
-						console.log(`Send "${user_input}" to input element (${name})`);
-					}
-				}
+		do {
+			YorN = prompt("Continue? (Y/N): ") ?? "N";
 
-				const submit_elems = await form_elem.findElements(
-					By.css('input[type="submit"]'),
-				);
-				console.log(`Found ${submit_elems.length} input(submit) elements.`);
-
-				for await (const submit_elem of submit_elems) {
-					prompt(`Submit (${await submit_elem.getAttribute("value")}):`);
-
-					images.push(
-						await take_screenshot(
-							`images/${chapter}/${file_name}_${images.length}.jpg`,
-						),
-					);
-					await submit_elem.submit();
-					images.push(
-						await take_screenshot(
-							`images/${chapter}/${file_name}_${images.length}.jpg`,
-						),
-					);
-				}
-			}
-		} else {
 			images.push(
-				await take_screenshot(output_image),
+				await take_screenshot(
+					`images/${chapter}/${file_name}_${images.length}.jpg`,
+				),
 			);
-		}
+		} while (YorN.toUpperCase() === "Y");
 	} finally {
 		await driver.quit();
 	}

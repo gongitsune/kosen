@@ -1,5 +1,5 @@
 <?php
-$to = 'wings@example.com';
+$to = 'g22307@kagawa.kosen-ac.jp';
 $subject = '独習PHP 改訂版';
 $body = "こんにちは、mb_send_mail関数！\nどうですか？";
 $headers  = "From : user01@example.com\n";
